@@ -41,7 +41,7 @@ export const profile = {
 };
 
 export const projectProcess =
-  'Both projects were built with an AI-assisted, vibe-coding workflow. I am still growing my fluency in specific languages and frameworks, but I understand product flow, can inspect behavior carefully, and use that understanding to test, debug, and validate whether an implementation works.';
+  'These projects were built with an AI-assisted, vibe-coding development workflow. I am still growing my fluency in specific languages and frameworks, but I understand product flow, can inspect behavior carefully, and use that understanding to test, debug, and validate whether an implementation works.';
 
 export const researchRole = {
   title: 'Research Intern at CORE Lab UIT',
@@ -97,15 +97,15 @@ export const projects: Project[] = [
   },
   {
     title: 'MOMENTUM / Aether',
-    subtitle: 'Calm productivity Chrome Extension',
+    subtitle: 'Local-first Chrome new-tab extension',
     description:
-      'An AI-assisted local-first new-tab dashboard with a soft clock, focus input, useful widgets, and a glassmorphism interface designed to make daily planning feel lighter.',
+      'A calm productivity dashboard that replaces the Chrome new tab with a live clock, personalized greeting, daily focus input, and lightweight planning widgets.',
     highlights: [
-      'Chrome Extension new-tab experience',
-      'Focus-first dashboard widgets',
-      'Local-first state and polished visual interactions',
+      'Built with Plasmo, React, TypeScript, Tailwind CSS, and Zustand',
+      'Local-first state with Chrome Storage for tasks, focus, preferences, and widgets',
+      'Includes Pomodoro, todo list, habits, calendar, quotes, backgrounds, and an AI sidebar UI shell only',
     ],
-    tags: ['React', 'TypeScript', 'Chrome Extension', 'Zustand', 'Tailwind CSS'],
+    tags: ['Plasmo', 'React', 'TypeScript', 'Zustand', 'Chrome Storage'],
     href: 'https://github.com/khangnk144/MOMENTUM',
     accent: 'sage',
     icon: PanelsTopLeft,
