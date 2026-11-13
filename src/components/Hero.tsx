@@ -75,7 +75,7 @@ export function Hero() {
         >
           <div className="absolute -left-4 top-16 z-10 rounded-3xl border border-white/80 bg-white/72 p-4 shadow-[0_18px_55px_rgba(92,64,72,0.16)] backdrop-blur">
             <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">UIT</p>
-            <p className="mt-1 font-serif text-2xl text-[var(--color-ink)]">Year 2</p>
+            <p className="mt-1 font-serif text-2xl text-[var(--color-ink)]">Year 3</p>
           </div>
           <div className="absolute -right-2 bottom-8 z-10 rounded-3xl border border-white/80 bg-[var(--color-sage-100)]/80 p-4 shadow-[0_18px_55px_rgba(92,64,72,0.14)] backdrop-blur">
             <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">

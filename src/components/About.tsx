@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { aboutCards, profile, researchRole } from '../data/portfolio';
+import { aboutCards, profile, publications, researchRole } from '../data/portfolio';
 import { SectionHeading } from './SectionHeading';
 
 export function About() {
@@ -52,6 +52,39 @@ export function About() {
               <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--color-muted)]">
                 {researchRole.text}
               </p>
+              <div className="mt-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-sage-800)]">
+                  Publications
+                </p>
+                <ul className="mt-3 space-y-3">
+                  {publications.map((pub) => (
+                    <li
+                      key={pub.title}
+                      className="max-w-3xl rounded-2xl border border-white/80 bg-white/62 p-4 text-sm leading-6"
+                    >
+                      <p className="font-semibold text-[var(--color-ink)]">{pub.title}</p>
+                      <p className="mt-1 text-[var(--color-muted)]">
+                        {pub.authors.map((author, index) => (
+                          <span key={author}>
+                            {author === profile.name ? (
+                              <strong className="text-[var(--color-ink)]">{author}</strong>
+                            ) : (
+                              author
+                            )}
+                            {index < pub.authors.length - 1 && ', '}
+                          </span>
+                        ))}
+                      </p>
+                      <p className="mt-2 flex flex-wrap items-center gap-2">
+                        <span className="font-medium text-[var(--color-rose-800)]">{pub.venue}</span>
+                        <span className="rounded-full bg-[var(--color-sage-100)] px-3 py-0.5 text-xs font-semibold text-[var(--color-sage-800)]">
+                          {pub.status}
+                        </span>
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
           <a

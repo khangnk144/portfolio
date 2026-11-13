@@ -37,7 +37,7 @@ export const profile = {
   github: 'https://github.com/khangnk144',
   roles: ['Computer Science Student', 'Research Intern', 'Curious Builder'],
   intro:
-    'I am a second-year Computer Science student who enjoys turning thoughtful product ideas and research questions into clear, testable flows.',
+    'I am a third-year Computer Science student who enjoys turning thoughtful product ideas and research questions into clear, testable flows.',
 };
 
 export const projectProcess =
@@ -48,9 +48,19 @@ export const researchRole = {
   href: 'http://core.uit.edu.vn/',
   label: 'Computer Vision & Retrieval',
   text:
-    'At CORE Lab, I read papers, look for research gaps, shape new problem ideas, and explore possible solution directions. I do not have publications yet.',
+    'At CORE Lab, I read papers, look for research gaps, shape new problem ideas, and explore possible solution directions.',
   icon: Search,
 };
+
+export const publications = [
+  {
+    title:
+      'Evidence Placement Matters: Pixel-Grounded Re-Ranking for Training-Free Composed Video Retrieval',
+    authors: ['Long Le', 'Khang Nguyen', 'Bao Tran', 'Thanh Duc Ngo'],
+    venue: 'WACV 2027',
+    status: 'Accepted',
+  },
+];
 
 export const navigation = [
   { label: 'Home', href: '#home' },

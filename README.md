@@ -22,6 +22,7 @@ The portfolio highlights:
 - SKINMATE: full-stack skincare ingredient analysis and recommendation app.
 - MOMENTUM / Aether: local-first Chrome new-tab productivity extension built with Plasmo, React, TypeScript, Zustand, Tailwind CSS, and Chrome Storage.
 - CORE Lab UIT research intern experience: reading papers, finding gaps, shaping new problem ideas, and exploring solution directions.
+- Publication: "Evidence Placement Matters: Pixel-Grounded Re-Ranking for Training-Free Composed Video Retrieval" (WACV 2027, accepted).
 - AI-assisted / vibe-coding workflow, presented with an emphasis on product-flow understanding, testing, debugging, and validation.
 
 Contact is GitHub-only: <https://github.com/khangnk144>.
