@@ -1,109 +1,103 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight, GitBranch, MapPin, Sparkles } from 'lucide-react';
-import profileImage from '../assets/profile-image.png';
-import { profile } from '../data/portfolio';
+import { animate, motion, useInView } from 'framer-motion';
+import { ArrowDown, ArrowUpRight, MapPin } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { nameParts, profile, projects, publications, researchRole } from '../data/portfolio';
+import { researchDirections } from '../data/research-directions';
+import { HeroPortrait } from './HeroPortrait';
+import { TerminalLine } from './TerminalLine';
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const stats = [
+  { value: 3, label: 'year at UIT' },
+  { value: researchDirections.length, label: 'research directions' },
+  { value: publications.length, label: 'publication' },
+  { value: projects.length, label: 'featured projects' },
+];
+
+/** Counts up from 0 the first time it is visible. */
+function CountUp({ to }: { to: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(0, to, { duration: 1.1, ease: 'easeOut', onUpdate: (v) => setValue(Math.round(v)) });
+    return () => controls.stop();
+  }, [inView, to]);
+
+  return <span ref={ref}>{String(value).padStart(2, '0')}</span>;
+}
 
 export function Hero() {
   return (
-    <section
-      id="home"
-      className="relative flex min-h-screen items-center px-5 pb-20 pt-32 sm:px-8 lg:px-10"
-    >
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[-12rem] top-24 h-80 w-80 rounded-full bg-[rgba(232,165,181,0.28)] blur-3xl" />
-        <div className="absolute right-[-10rem] top-40 h-96 w-96 rounded-full bg-[rgba(166,190,168,0.22)] blur-3xl" />
-        <div className="absolute bottom-12 left-1/3 h-64 w-64 rounded-full bg-[rgba(244,214,196,0.38)] blur-3xl" />
-      </div>
+    <section id="home" className="px-5 pb-24 pt-32 sm:px-8 lg:px-10 lg:pb-32 lg:pt-40">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-[1.15fr_0.85fr]">
+        <motion.div className="min-w-0" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
+          <a
+            href={researchRole.href}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 font-mono text-xs text-muted transition-colors hover:text-rosewood"
+          >
+            <span className="size-1.5 rounded-full bg-pop" />
+            {researchRole.title}
+            <ArrowUpRight size={13} />
+          </a>
 
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-        >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--color-rose-200)] bg-white/70 px-4 py-2 text-sm text-[var(--color-rose-800)] shadow-sm">
-            <Sparkles size={16} />
-            Hello, I am
-          </div>
-          <h1 className="font-serif text-5xl leading-[1.02] text-[var(--color-ink)] sm:text-6xl lg:text-7xl">
-            {profile.name}
+          <h1 className="mt-6 whitespace-nowrap font-display text-[clamp(2.75rem,7vw,5.5rem)] font-light leading-none tracking-[-0.03em] text-ink">
+            {nameParts.first} <em className="font-normal text-rosewood">{nameParts.last}</em>
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-8 text-[var(--color-muted)] sm:text-xl">
-            {profile.headline}
+
+          <p className="mt-5 text-lg text-ink sm:text-xl">
+            {/* Non-breaking hyphens keep "Full-Stack" on one line. */}
+            {profile.headline.replace(' - ', ' · ').replaceAll('-', '‑')}
+            <span className="ml-1 text-pop">✦</span>
           </p>
-          <div className="mt-5 flex max-w-xl items-start gap-3 rounded-3xl border border-white/80 bg-white/62 p-4 text-sm leading-6 text-[var(--color-muted)] shadow-sm backdrop-blur">
-            <MapPin className="mt-1 shrink-0 text-[var(--color-sage-700)]" size={18} />
-            <span>{profile.school}</span>
+
+          <div className="mt-5">
+            <TerminalLine />
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            {profile.roles.map((role) => (
-              <span
-                key={role}
-                className="rounded-full border border-white/80 bg-white/64 px-4 py-2 text-sm font-medium text-[var(--color-muted)] shadow-sm"
-              >
-                {role}
-              </span>
-            ))}
-          </div>
+          <p className="mt-6 max-w-xl text-[0.95rem] leading-7 text-muted">{profile.intro}</p>
+          <p className="mt-3 flex max-w-xl items-start gap-2 text-sm text-muted">
+            <MapPin className="mt-0.5 shrink-0 text-rosewood" size={15} />
+            {profile.school}
+          </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-4">
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <a
+              href="#research"
+              className="group inline-flex items-center gap-2 rounded-full bg-plum px-6 py-3 font-mono text-xs text-white transition-colors hover:bg-rosewood"
+            >
+              ./explore-research
+              <ArrowDown size={14} className="transition-transform group-hover:translate-y-0.5" />
+            </a>
             <a
               href={profile.github}
               target="_blank"
               rel="noreferrer"
-              className="primary-cta inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-6 py-3 text-sm font-semibold shadow-[0_16px_38px_rgba(76,58,64,0.24)] transition hover:-translate-y-0.5 hover:bg-[var(--color-rose-900)] focus:outline-none focus:ring-2 focus:ring-[var(--color-rose-500)] focus:ring-offset-2"
+              className="inline-flex items-center gap-2 rounded-full border border-plum/20 bg-paper px-6 py-3 font-mono text-xs text-plum transition-colors hover:border-pop hover:text-pop"
             >
-              <GitBranch size={18} />
-              View GitHub
-              <ArrowUpRight size={16} />
-            </a>
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 rounded-full border border-[var(--color-rose-300)] bg-white/68 px-6 py-3 text-sm font-semibold text-[var(--color-rose-900)] transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-rose-500)] focus:ring-offset-2"
-            >
-              See Projects
+              github
+              <ArrowUpRight size={14} />
             </a>
           </div>
+
+          <dl className="mt-12 grid max-w-lg grid-cols-2 gap-y-5 border-t border-line pt-6 sm:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col-reverse">
+                <dt className="mt-1 font-mono text-[0.65rem] leading-4 text-muted">{stat.label}</dt>
+                <dd className="font-display text-3xl text-ink">
+                  <CountUp to={stat.value} />
+                </dd>
+              </div>
+            ))}
+          </dl>
         </motion.div>
 
-        <motion.div
-          className="relative mx-auto w-full max-w-[29rem]"
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.12, ease: 'easeOut' }}
-        >
-          <div className="absolute -left-4 top-16 z-10 rounded-3xl border border-white/80 bg-white/72 p-4 shadow-[0_18px_55px_rgba(92,64,72,0.16)] backdrop-blur">
-            <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">UIT</p>
-            <p className="mt-1 font-serif text-2xl text-[var(--color-ink)]">Year 3</p>
-          </div>
-          <div className="absolute -right-2 bottom-8 z-10 rounded-3xl border border-white/80 bg-[var(--color-sage-100)]/80 p-4 shadow-[0_18px_55px_rgba(92,64,72,0.14)] backdrop-blur">
-            <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">
-              Focus
-            </p>
-            <p className="mt-1 font-medium text-[var(--color-ink)]">Logic & Flow</p>
-          </div>
-          <div
-            className="relative aspect-[0.86] rounded-[2.2rem] border border-white/80 bg-gradient-to-br from-white via-[var(--color-blush)] to-[var(--color-sage-100)] p-6 shadow-[0_28px_80px_rgba(92,64,72,0.16)]"
-            onContextMenu={(event) => event.preventDefault()}
-          >
-            <div className="absolute inset-6 rounded-[1.8rem] border border-white/70" />
-            <div className="relative grid h-full place-items-center rounded-[1.7rem] bg-white/40">
-              <div className="grid size-52 place-items-center overflow-hidden rounded-full border border-white/80 bg-[var(--color-rose-200)]/70 shadow-inner sm:size-60">
-                <img
-                  src={profileImage}
-                  alt="Khang Nguyen portrait"
-                  className="protected-photo h-full w-full object-cover"
-                  draggable={false}
-                  loading="eager"
-                />
-              </div>
-              <div className="absolute left-10 top-10 size-5 rounded-full bg-[var(--color-sage-600)]" />
-              <div className="absolute bottom-20 right-14 size-8 rounded-full border border-[var(--color-rose-300)]" />
-              <div className="absolute right-9 top-20 h-14 w-14 rounded-full bg-white/70" />
-            </div>
-          </div>
-        </motion.div>
+        <HeroPortrait />
       </div>
     </section>
   );

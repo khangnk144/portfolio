@@ -1,23 +1,26 @@
+import type { ReactNode } from 'react';
+import { Reveal } from './Reveal';
+import { ScrambleText } from './ScrambleText';
+
 type SectionHeadingProps = {
+  index: string;
   eyebrow: string;
-  title: string;
+  title: ReactNode;
   description?: string;
 };
 
-export function SectionHeading({ eyebrow, title, description }: SectionHeadingProps) {
+export function SectionHeading({ index, eyebrow, title, description }: SectionHeadingProps) {
   return (
-    <div className="mx-auto mb-10 max-w-2xl text-center">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-rose-600)]">
-        {eyebrow}
-      </p>
-      <h2 className="font-serif text-3xl leading-tight text-[var(--color-ink)] sm:text-4xl">
-        {title}
-      </h2>
-      {description ? (
-        <p className="mt-4 text-sm leading-7 text-[var(--color-muted)] sm:text-base">
-          {description}
+    <Reveal className="mx-auto mb-14 grid max-w-6xl gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
+      <div>
+        <p className="mb-5 font-mono text-xs text-rosewood">
+          <span className="text-pop">[{index}]</span> <ScrambleText text={`~/${eyebrow.toLowerCase()}`} />
         </p>
-      ) : null}
-    </div>
+        <h2 className="font-display text-4xl font-light leading-[1.08] tracking-[-0.02em] text-ink sm:text-5xl">
+          {title}
+        </h2>
+      </div>
+      {description ? <p className="text-[0.95rem] leading-7 text-muted lg:pb-1">{description}</p> : null}
+    </Reveal>
   );
 }

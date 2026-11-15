@@ -40,6 +40,9 @@ export const profile = {
     'I am a third-year Computer Science student who enjoys turning thoughtful product ideas and research questions into clear, testable flows.',
 };
 
+const [firstName, ...lastNameParts] = profile.name.split(' ');
+export const nameParts = { first: firstName, last: lastNameParts.join(' ') };
+
 export const projectProcess =
   'These projects were built with an AI-assisted, vibe-coding development workflow. I am still growing my fluency in specific languages and frameworks, but I understand product flow, can inspect behavior carefully, and use that understanding to test, debug, and validate whether an implementation works.';
 
@@ -57,6 +60,7 @@ export const publications = [
     title:
       'Evidence Placement Matters: Pixel-Grounded Re-Ranking for Training-Free Composed Video Retrieval',
     authors: ['Long Le', 'Khang Nguyen', 'Bao Tran', 'Thanh Duc Ngo'],
+    equalContribution: ['Long Le', 'Khang Nguyen'],
     venue: 'WACV 2027',
     status: 'Accepted',
   },
@@ -65,6 +69,7 @@ export const publications = [
 export const navigation = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
+  { label: 'Research', href: '#research' },
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },

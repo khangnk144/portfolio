@@ -1,102 +1,42 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import { aboutCards, profile, publications, researchRole } from '../data/portfolio';
+import { aboutCards } from '../data/portfolio';
+import { ResearchCard } from './ResearchCard';
+import { Reveal } from './Reveal';
 import { SectionHeading } from './SectionHeading';
 
 export function About() {
-  const ResearchIcon = researchRole.icon;
-
   return (
-    <section id="about" className="section-shell bg-white/42">
+    <section id="about" className="section-shell border-t border-line">
       <SectionHeading
+        index="01"
         eyebrow="About"
-        title="Building thoughtful web products while learning deeply."
-        description={profile.intro}
+        title={
+          <>
+            Building thoughtful products while <em className="text-rosewood">learning deeply.</em>
+          </>
+        }
       />
 
-      <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-3">
-        {aboutCards.map((card, index) => {
-          const Icon = card.icon;
-          return (
-            <motion.article
-              key={card.title}
-              className="rounded-[1.5rem] border border-white/80 bg-white/72 p-6 shadow-[0_18px_55px_rgba(92,64,72,0.09)] backdrop-blur"
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-            >
-              <div className="mb-5 grid size-12 place-items-center rounded-2xl bg-[var(--color-blush)] text-[var(--color-rose-800)]">
-                <Icon size={22} />
-              </div>
-              <h3 className="font-serif text-xl text-[var(--color-ink)]">{card.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">{card.text}</p>
-            </motion.article>
-          );
-        })}
-      </div>
+      <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+        <Reveal>
+          <ResearchCard />
+        </Reveal>
 
-      <div className="mx-auto mt-6 max-w-6xl rounded-[1.65rem] border border-white/80 bg-gradient-to-br from-white/78 via-[var(--color-blush)]/48 to-[var(--color-sage-100)]/64 p-6 shadow-[0_18px_55px_rgba(92,64,72,0.09)] backdrop-blur sm:p-7">
-        <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-          <div className="flex gap-4">
-            <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white/72 text-[var(--color-sage-800)]">
-              <ResearchIcon size={22} />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-rose-600)]">
-                {researchRole.label}
-              </p>
-              <h3 className="mt-2 font-serif text-2xl text-[var(--color-ink)]">
-                {researchRole.title}
-              </h3>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--color-muted)]">
-                {researchRole.text}
-              </p>
-              <div className="mt-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-sage-800)]">
-                  Publications
-                </p>
-                <ul className="mt-3 space-y-3">
-                  {publications.map((pub) => (
-                    <li
-                      key={pub.title}
-                      className="max-w-3xl rounded-2xl border border-white/80 bg-white/62 p-4 text-sm leading-6"
-                    >
-                      <p className="font-semibold text-[var(--color-ink)]">{pub.title}</p>
-                      <p className="mt-1 text-[var(--color-muted)]">
-                        {pub.authors.map((author, index) => (
-                          <span key={author}>
-                            {author === profile.name ? (
-                              <strong className="text-[var(--color-ink)]">{author}</strong>
-                            ) : (
-                              author
-                            )}
-                            {index < pub.authors.length - 1 && ', '}
-                          </span>
-                        ))}
-                      </p>
-                      <p className="mt-2 flex flex-wrap items-center gap-2">
-                        <span className="font-medium text-[var(--color-rose-800)]">{pub.venue}</span>
-                        <span className="rounded-full bg-[var(--color-sage-100)] px-3 py-0.5 text-xs font-semibold text-[var(--color-sage-800)]">
-                          {pub.status}
-                        </span>
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <a
-            href={researchRole.href}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-[var(--color-rose-300)] bg-white/62 px-5 py-3 text-sm font-semibold text-[var(--color-rose-900)] transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-rose-500)] focus:ring-offset-2"
-          >
-            CORE Lab
-            <ArrowUpRight size={16} />
-          </a>
-        </div>
+        <Reveal delay={0.1}>
+          <ul className="border-t border-line">
+            {aboutCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <li key={card.title} className="flex gap-4 border-b border-line py-6">
+                  <Icon size={20} className="mt-1 shrink-0 text-rosewood" />
+                  <div>
+                    <h3 className="font-display text-xl text-ink">{card.title}</h3>
+                    <p className="mt-2 text-[0.95rem] leading-7 text-muted">{card.text}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );
